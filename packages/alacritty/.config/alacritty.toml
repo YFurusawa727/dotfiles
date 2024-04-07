@@ -1,0 +1,11 @@
+[window]
+dynamic_title = true
+opacity = 0.87
+
+[window.dimensions]
+columns = 150
+lines = 40
+
+[window.padding]
+x = 5
+y = 0
