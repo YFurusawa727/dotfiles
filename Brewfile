@@ -9,5 +9,6 @@ brew "gpg"
 brew "stow"
 brew "starship"
 brew "themekit"
+brew "zsh-autosuggestions"
 
 cask "alacritty"
