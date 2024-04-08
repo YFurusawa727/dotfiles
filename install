@@ -19,4 +19,45 @@ if [ ! -d ~/.config ]; then
     mkdir ~/.config/
 fi
 
-stow -v -d ~/dotfiles/packages -t ~ zsh starship alacritty
+stow -v -d ~/dotfiles/packages -t ~ git asdf zsh starship alacritty
+
+
+### Function
+log () {
+    messeage=$1
+    echo 📌 "$messeage"
+}
+
+is_dir () {
+    path="$1"
+    [ -d "$path" ]
+}
+
+is_runtime_versions_changed () {
+    plugin="$1"
+    specified=$(grep "$plugin" ~/.tool-versions | awk '{$1=""; print $0}')
+    installed=$(asdf list "$plugin" 2>&1)
+
+    is_changed=
+    for version in $specified; do
+        match=$(echo "$installed" | grep "$version")
+        [ -z "$match" ] && is_changed=1
+    done
+
+    [ "$is_changed" ]
+}
+
+
+### asdf Install Script
+for plugin in $(awk '{print $1}' ~/.tool-versions); do
+    if ! is_dir ~/.asdf/plugins/"$plugin"; then
+        asdf plugin add "$plugin"
+    fi
+done
+
+for plugin in $(asdf plugin list); do
+    if is_runtime_versions_changed "$plugin"; then
+        log "Install runtime: $plugin"
+        asdf install "$plugin"
+    fi
+done

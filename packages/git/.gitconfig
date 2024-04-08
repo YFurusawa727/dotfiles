@@ -1,0 +1,24 @@
+[user]
+	name = YFurusawa
+	email = yfurusawa727@gmail.com
+[alias]
+	s   = status -sb
+	d   = diff
+	a   = add
+	aa  = add -A
+	b   = branch
+	co  = checkout
+	cob = checkout -b
+	c   = commit
+	cm  = commit -m
+	pso = push origin
+	pl  = pull
+	plo = pull origin
+	f   = fetch
+	fup = fetch upstream
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+[color]
+	diff = auto
+	status = auto
+	branch = auto
