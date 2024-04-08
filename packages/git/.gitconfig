@@ -16,6 +16,7 @@
 	plo = pull origin
 	f   = fetch
 	fup = fetch upstream
+	l   = log
 [core]
 	editor = vim -c \"set fenc=utf-8\"
 [color]
