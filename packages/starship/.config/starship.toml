@@ -5,5 +5,8 @@ add_newline = true
 [character]
 success_symbol = "🦄"
 
+[git_branch]
+symbol = "🌱 "
+
 [package]
 disabled = true
