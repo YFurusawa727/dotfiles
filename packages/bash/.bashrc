@@ -1,3 +1,7 @@
-alias ll='ls -la'
+alias a='alias'
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ll='clear && ls -alF --color=auto'
 alias yakata='cd ~/dev/yakata-online'
 alias dotinstall='~/dotfiles/install'
