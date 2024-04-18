@@ -406,14 +406,14 @@
     },
     "tap": {
       "shopify/shopify": {
-        "revision": "d7ca0542530c87fe9574f19efba5796619937c5a"
+        "revision": "10a08014088b811f472a26a154edc88186a4cef1"
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.17",
+        "HOMEBREW_VERSION": "4.2.18",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",

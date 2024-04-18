@@ -21,7 +21,7 @@ if [ ! -d ~/.config ]; then
     mkdir ~/.config/
 fi
 
-stow -v -d ~/dotfiles/packages -t ~ git asdf zsh starship alacritty
+stow -v -d ~/dotfiles/packages -t ~ git asdf zsh bash starship alacritty
 
 
 ### Function
