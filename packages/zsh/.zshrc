@@ -31,4 +31,7 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^E' peco-cdr
 
+export LANG=ja_JP.UTF-8
+export KCODE=u
+
 source ~/.bashrc
