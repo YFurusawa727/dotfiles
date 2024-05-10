@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+# リンクのリストを定義
+typeset -A links
+links[GitHub]="https://drive.google.com"
+links[phpMyAdmin]="https://phpmyadmin-sv14062.xserver.jp/"
+
+# ユーザーに選択させる
+PS3='開きたいページを選択してください: '
+select opt in ${(k)links} "Quit"; do
+  case $opt in
+    "Quit")
+      echo "終了します。"
+      break
+      ;;
+    *)
+      url="${links[$opt]}"
+      if [[ -n $url ]]; then
+        open "$url"
+        break
+      else
+        echo "無効な選択肢です。"
+      fi
+      ;;
+  esac
+done
