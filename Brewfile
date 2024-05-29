@@ -15,6 +15,7 @@ brew "zsh-autosuggestions"
 
 cask "alacritty"
 cask "android-studio"
+cask "appcleaner"
 cask "clipy"
 cask "coteditor"
 cask "cursor"

@@ -458,7 +458,7 @@
         }
       },
       "cursor": {
-        "version": "0.34.0,240527xus72jmkj",
+        "version": "0.34.1,24052838ygfselt",
         "options": {
           "full_name": "cursor"
         }
@@ -581,6 +581,12 @@
         "version": "2.29.5330",
         "options": {
           "full_name": "google-japanese-ime"
+        }
+      },
+      "appcleaner": {
+        "version": "3.6.8",
+        "options": {
+          "full_name": "appcleaner"
         }
       }
     },
