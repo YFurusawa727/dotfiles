@@ -33,5 +33,6 @@ bindkey '^E' peco-cdr
 
 export LANG=ja_JP.UTF-8
 export KCODE=u
+export LC_CTYPE=ja_JP.UTF-8
 
 source ~/.bashrc
