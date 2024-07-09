@@ -458,7 +458,7 @@
         }
       },
       "cursor": {
-        "version": "0.35.0,240608cv11mfsjl",
+        "version": "0.36.2,2407077n6pzboby",
         "options": {
           "full_name": "cursor"
         }
@@ -470,7 +470,7 @@
         }
       },
       "android-studio": {
-        "version": "2023.3.1.19",
+        "version": "2024.1.1.11",
         "options": {
           "full_name": "android-studio"
         }
@@ -482,19 +482,19 @@
         }
       },
       "google-chrome": {
-        "version": "125.0.6422.142",
+        "version": "126.0.6478.127",
         "options": {
           "full_name": "google-chrome"
         }
       },
       "slack": {
-        "version": "4.38.125",
+        "version": "4.39.88",
         "options": {
           "full_name": "slack"
         }
       },
       "visual-studio-code": {
-        "version": "1.90.0",
+        "version": "1.91.0",
         "options": {
           "full_name": "visual-studio-code"
         }
@@ -506,19 +506,19 @@
         }
       },
       "notion": {
-        "version": "3.9.1",
+        "version": "3.9.6",
         "options": {
           "full_name": "notion"
         }
       },
       "coteditor": {
-        "version": "4.8.5",
+        "version": "4.8.7",
         "options": {
           "full_name": "coteditor"
         }
       },
       "postman": {
-        "version": "11.1.14",
+        "version": "11.3.0",
         "options": {
           "full_name": "postman"
         }
@@ -530,7 +530,7 @@
         }
       },
       "zoom": {
-        "version": "6.0.11.35001",
+        "version": "6.1.1.36333",
         "options": {
           "full_name": "zoom"
         }
@@ -548,31 +548,31 @@
         }
       },
       "safeincloud-password-manager": {
-        "version": "24.5.4,2405004",
+        "version": "24.7.2,2407002",
         "options": {
           "full_name": "safeincloud-password-manager"
         }
       },
       "phpstorm": {
-        "version": "2024.1.2,241.17011.119",
+        "version": "2024.1.4,241.18034.69",
         "options": {
           "full_name": "phpstorm"
         }
       },
       "intellij-idea": {
-        "version": "2024.1.2,241.17011.79",
+        "version": "2024.1.4,241.18034.62",
         "options": {
           "full_name": "intellij-idea"
         }
       },
       "cyberduck": {
-        "version": "8.9.0,41543",
+        "version": "9.0.0,41777",
         "options": {
           "full_name": "cyberduck"
         }
       },
       "discord": {
-        "version": "0.0.306",
+        "version": "0.0.310",
         "options": {
           "full_name": "discord"
         }
@@ -596,26 +596,32 @@
         }
       },
       "brave-browser": {
-        "version": "1.66.118.0",
+        "version": "1.67.123.0",
         "options": {
           "full_name": "brave-browser"
+        }
+      },
+      "webstorm": {
+        "version": "2024.1.5,241.18034.50",
+        "options": {
+          "full_name": "webstorm"
         }
       }
     },
     "tap": {
       "shopify/shopify": {
-        "revision": "f954d8ca582de66e1dd8ef97613e16266d491486"
+        "revision": "5c6e6ac9a2ecf774775bd5248da9d9fe449cc108"
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.3",
+        "HOMEBREW_VERSION": "4.3.9",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
-        "Xcode": "15.1",
+        "Xcode": "15.4",
         "macOS": "14.5"
       }
     }
