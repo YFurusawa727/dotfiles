@@ -2,7 +2,7 @@
 
 # リンクのリストを定義
 typeset -A links
-links[GitHub]="https://drive.google.com"
+links[GitHub]="https://github.com/"
 links[phpMyAdmin]="https://phpmyadmin-sv14062.xserver.jp/"
 
 # ユーザーに選択させる
