@@ -1,6 +1,6 @@
 [user]
-	name = YFurusawa
-	email = yfurusawa727@gmail.com
+	name = ${GIT_USER_NAME:-Your Full Name}
+	email = ${GIT_USER_EMAIL:-your.email@example.com}
 [alias]
 	s   = status -sb
 	d   = diff

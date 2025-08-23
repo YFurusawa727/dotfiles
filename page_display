@@ -1,26 +1,64 @@
 #!/bin/zsh
 
+set -e
+
+# Function to log messages
+log() {
+    echo "📄 $1"
+}
+
+# Function to handle errors
+error_exit() {
+    echo "❌ Error: $1" >&2
+    exit 1
+}
+
+# Check if 'open' command is available (macOS specific)
+if ! command -v open >/dev/null 2>&1; then
+    error_exit "'open' command not found. This script is designed for macOS."
+fi
+
 # リンクのリストを定義
 typeset -A links
 links[GitHub]="https://github.com/"
 links[phpMyAdmin]="https://phpmyadmin-sv14062.xserver.jp/"
 
+# Validate URLs
+for key in ${(k)links}; do
+    url="${links[$key]}"
+    if [[ ! $url =~ ^https?:// ]]; then
+        error_exit "Invalid URL format for $key: $url"
+    fi
+done
+
+log "Available pages:"
+for key in ${(k)links}; do
+    echo "  - $key: ${links[$key]}"
+done
+
 # ユーザーに選択させる
-PS3='開きたいページを選択してください: '
+PS3='開きたいページを選択してください (番号を入力): '
 select opt in ${(k)links} "Quit"; do
-  case $opt in
-    "Quit")
-      echo "終了します。"
-      break
-      ;;
-    *)
-      url="${links[$opt]}"
-      if [[ -n $url ]]; then
-        open "$url"
-        break
-      else
-        echo "無効な選択肢です。"
-      fi
-      ;;
-  esac
+    case $opt in
+        "Quit")
+            log "終了します。"
+            exit 0
+            ;;
+        "")
+            echo "❌ 無効な選択肢です。数字を入力してください。"
+            ;;
+        *)
+            url="${links[$opt]}"
+            if [[ -n $url ]]; then
+                log "Opening: $url"
+                if ! open "$url"; then
+                    error_exit "Failed to open URL: $url"
+                fi
+                log "Successfully opened $opt"
+                exit 0
+            else
+                echo "❌ 無効な選択肢です: $opt"
+            fi
+            ;;
+    esac
 done

@@ -3,32 +3,107 @@
 set -e
 
 USERNAME=$(whoami)
+HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
+### Function
+log() {
+    message="$1"
+    echo "📌 $message"
+}
+
+error_exit() {
+    message="$1"
+    echo "❌ Error: $message" >&2
+    exit 1
+}
+
+verify_command() {
+    command="$1"
+    if ! command -v "$command" >/dev/null 2>&1; then
+        error_exit "$command is not installed or not in PATH"
+    fi
+}
+
+# Verify Homebrew installation
 if [ ! -f /opt/homebrew/bin/brew ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/"$USERNAME"/.zprofile
+    log "Installing Homebrew..."
+    if ! /bin/bash -c "$(curl -fsSL $HOMEBREW_INSTALL_URL)"; then
+        error_exit "Failed to install Homebrew"
+    fi
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> "/Users/$USERNAME/.zprofile"
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+verify_command brew
+
 if [ ! -d ~/dotfiles ]; then
-    cd ~
-    git clone https://github.com/YFurusawa727/dotfiles.git
+    log "Cloning dotfiles repository..."
+    cd ~ || error_exit "Failed to change to home directory"
+    if ! git clone https://github.com/YFurusawa727/dotfiles.git; then
+        error_exit "Failed to clone dotfiles repository"
+    fi
 fi
 
-brew bundle -v --file=~/dotfiles/Brewfile
+log "Installing Homebrew packages..."
+if ! brew bundle -v --file=~/dotfiles/Brewfile; then
+    error_exit "Failed to install Homebrew packages"
+fi
+
+# Setup environment variables for git configuration
+log "Setting up environment variables..."
+if [ ! -f ~/dotfiles/.env ]; then
+    log "Creating .env file for personal configuration..."
+    cp ~/dotfiles/.env.example ~/dotfiles/.env
+    
+    echo ""
+    echo "📝 Please configure your personal information:"
+    echo "   Edit ~/dotfiles/.env and set your name and email"
+    echo ""
+    echo "   Current default values:"
+    cat ~/dotfiles/.env | grep -E "^GIT_"
+    echo ""
+    
+    # Interactive setup option
+    read -p "Would you like to set your git configuration now? (y/n): " setup_git
+    if [ "$setup_git" = "y" ] || [ "$setup_git" = "Y" ]; then
+        read -p "Enter your full name: " git_name
+        read -p "Enter your email: " git_email
+        
+        if [ -n "$git_name" ] && [ -n "$git_email" ]; then
+            sed -i '' "s/GIT_USER_NAME=.*/GIT_USER_NAME=\"$git_name\"/" ~/dotfiles/.env
+            sed -i '' "s/GIT_USER_EMAIL=.*/GIT_USER_EMAIL=\"$git_email\"/" ~/dotfiles/.env
+            log "✓ Git configuration updated in .env file"
+        fi
+    fi
+    
+    # Load environment variables
+    if [ -f ~/dotfiles/.env ]; then
+        log "Loading environment variables..."
+        export $(grep -v '^#' ~/dotfiles/.env | xargs)
+    fi
+else
+    log "✓ .env file already exists"
+    # Load existing environment variables
+    export $(grep -v '^#' ~/dotfiles/.env | xargs)
+fi
 
 if [ ! -d ~/.config ]; then
-    mkdir ~/.config/
+    log "Creating ~/.config directory..."
+    mkdir -p ~/.config/
 fi
 
-stow -v -d ~/dotfiles/packages -t ~ git asdf zsh bash starship alacritty
+log "Setting up configuration files with stow..."
+log "Adopting existing configuration files if they exist..."
+if ! stow --adopt -v -d ~/dotfiles/packages -t ~ git asdf zsh bash starship alacritty; then
+    error_exit "Failed to setup configuration files with stow"
+fi
 
-
-### Function
-log () {
-    messeage=$1
-    echo 📌 "$messeage"
-}
+# Show what files were adopted
+if [ -d ~/.git ] || [ -f ~/.gitconfig ] || [ -f ~/.zshrc ] || [ -f ~/.bashrc ]; then
+    log "Notice: Existing configuration files have been adopted into dotfiles"
+    log "Your original settings are now managed by dotfiles and preserved"
+    log "You can review and customize them in ~/dotfiles/packages/"
+fi
 
 is_dir () {
     path="$1"
@@ -51,15 +126,29 @@ is_runtime_versions_changed () {
 
 
 ### asdf Install Script
-for plugin in $(awk '{print $1}' ~/.tool-versions); do
-    if ! is_dir ~/.asdf/plugins/"$plugin"; then
-        asdf plugin add "$plugin"
-    fi
-done
+log "Setting up asdf plugins and runtimes..."
+verify_command asdf
 
-for plugin in $(asdf plugin list); do
-    if is_runtime_versions_changed "$plugin"; then
-        log "Install runtime: $plugin"
-        asdf install "$plugin"
-    fi
-done
+if [ -f ~/.tool-versions ]; then
+    for plugin in $(awk '{print $1}' ~/.tool-versions); do
+        if ! is_dir ~/.asdf/plugins/"$plugin"; then
+            log "Adding asdf plugin: $plugin"
+            if ! asdf plugin add "$plugin"; then
+                error_exit "Failed to add asdf plugin: $plugin"
+            fi
+        fi
+    done
+
+    for plugin in $(asdf plugin list); do
+        if is_runtime_versions_changed "$plugin"; then
+            log "Installing runtime: $plugin"
+            if ! asdf install "$plugin"; then
+                error_exit "Failed to install runtime: $plugin"
+            fi
+        fi
+    done
+else
+    log "Warning: ~/.tool-versions not found, skipping asdf runtime installation"
+fi
+
+log "Dotfiles setup completed successfully! \ud83c\udf89"
