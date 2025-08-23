@@ -76,15 +76,19 @@ if [ ! -f ~/dotfiles/.env ]; then
         fi
     fi
     
-    # Load environment variables
+    # Load environment variables safely
     if [ -f ~/dotfiles/.env ]; then
         log "Loading environment variables..."
-        export $(grep -v '^#' ~/dotfiles/.env | xargs)
+        set -a
+        . ~/dotfiles/.env
+        set +a
     fi
 else
     log "✓ .env file already exists"
-    # Load existing environment variables
-    export $(grep -v '^#' ~/dotfiles/.env | xargs)
+    # Load existing environment variables safely
+    set -a
+    . ~/dotfiles/.env
+    set +a
 fi
 
 if [ ! -d ~/.config ]; then
