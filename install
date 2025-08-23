@@ -70,8 +70,24 @@ if [ ! -f ~/dotfiles/.env ]; then
         read -p "Enter your email: " git_email
         
         if [ -n "$git_name" ] && [ -n "$git_email" ]; then
-            sed -i '' "s/GIT_USER_NAME=.*/GIT_USER_NAME=\"$git_name\"/" ~/dotfiles/.env
-            sed -i '' "s/GIT_USER_EMAIL=.*/GIT_USER_EMAIL=\"$git_email\"/" ~/dotfiles/.env
+            # Use a safer method to update .env file without sed vulnerabilities
+            {
+                echo "# Environment variables for dotfiles configuration"
+                echo "# Copy this file to .env and set your personal values"
+                echo ""
+                echo "# Git configuration"
+                echo "# These variables are used in .gitconfig to avoid exposing personal information in the repository"
+                printf 'GIT_USER_NAME="%s"\n' "$git_name"
+                printf 'GIT_USER_EMAIL="%s"\n' "$git_email"
+                echo ""
+                echo "# Optional: Custom shell configuration"
+                echo "# SHELL_THEME=\"custom\""
+                echo ""
+                echo "# Optional: Development environment settings  "
+                echo "# NODE_VERSION=\"22.18.0\""
+                echo "# PYTHON_VERSION=\"3.12.3\""
+                echo "# FIREBASE_VERSION=\"14.12.1\""
+            } > ~/dotfiles/.env
             log "✓ Git configuration updated in .env file"
         fi
     fi
