@@ -295,20 +295,25 @@ dottest
 
 ```bash
 # インストール実行時の動作
-# 1. 既存の ~/.gitconfig があれば ~/dotfiles/packages/git/.gitconfig にコピー
-# 2. 既存の ~/.zshrc があれば ~/dotfiles/packages/zsh/.zshrc にコピー  
-# 3. シンボリックリンクを作成して dotfiles での管理開始
+# 1. .gitconfig.example から個人用 .gitconfig を作成（初回のみ）
+# 2. 環境変数があれば自動的に名前・メールを設定
+# 3. 既存の ~/.zshrc があれば ~/dotfiles/packages/zsh/.zshrc にコピー  
+# 4. シンボリックリンクを作成して dotfiles での管理開始
 ```
 
 ### **利点**
 - ✅ **データ損失なし**: 既存設定が完全に保持される
 - ✅ **即座に利用可能**: 今の設定のまま dotfiles 管理に移行
 - ✅ **段階的カスタマイズ**: 後から徐々に dotfiles の機能を活用可能
+- ✅ **プライバシー保護**: 個人情報がリポジトリに記録されない安全な設計
 
 ### **確認・編集方法**
 ```bash
-# 取り込まれた設定を確認
+# git設定を確認・編集（個人情報は安全にローカル管理）
 cat ~/dotfiles/packages/git/.gitconfig
+vim ~/dotfiles/packages/git/.gitconfig
+
+# その他の設定を確認
 cat ~/dotfiles/packages/zsh/.zshrc
 
 # 設定をカスタマイズ
@@ -318,7 +323,10 @@ vim ~/dotfiles/packages/git/.gitconfig
 
 ## セキュリティに関する考慮事項
 
-- **個人情報保護**: git設定は環境変数を使用、`.env`ファイルはgit管理外
+- **個人情報保護**: 
+  - `.env`ファイルはgit管理外で個人情報を安全に管理
+  - `.gitconfig`は個別作成でリポジトリに個人情報が含まれない
+  - `.gitconfig.example`をテンプレートとして提供
 - **既存設定の安全性**: 既存設定の自動取り込みによりデータ損失を防止
 - **スクリプト検証**: 外部スクリプトは実行前に検証
 - **URL検証**: page_displayスクリプトのURLは検証済み  

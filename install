@@ -98,6 +98,25 @@ if ! stow --adopt -v -d ~/dotfiles/packages -t ~ git asdf zsh bash starship alac
     error_exit "Failed to setup configuration files with stow"
 fi
 
+# Set up git configuration from template
+if [ ! -f ~/dotfiles/packages/git/.gitconfig ]; then
+    log "Creating .gitconfig from template..."
+    cp ~/dotfiles/packages/git/.gitconfig.example ~/dotfiles/packages/git/.gitconfig
+    
+    # Replace placeholders with actual values if environment variables are set
+    if [ -n "$GIT_USER_NAME" ] && [ -n "$GIT_USER_EMAIL" ]; then
+        log "Setting up git configuration with environment variables..."
+        sed -i '' "s/Your Full Name/$GIT_USER_NAME/" ~/dotfiles/packages/git/.gitconfig
+        sed -i '' "s/your.email@example.com/$GIT_USER_EMAIL/" ~/dotfiles/packages/git/.gitconfig
+        log "Git user configured: $GIT_USER_NAME <$GIT_USER_EMAIL>"
+    else
+        log "Git configuration created with default template"
+        log "Please edit ~/dotfiles/packages/git/.gitconfig to set your name and email"
+    fi
+else
+    log "✓ Git configuration already exists"
+fi
+
 # Show what files were adopted
 if [ -d ~/.git ] || [ -f ~/.gitconfig ] || [ -f ~/.zshrc ] || [ -f ~/.bashrc ]; then
     log "Notice: Existing configuration files have been adopted into dotfiles"
