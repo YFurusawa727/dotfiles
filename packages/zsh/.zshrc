@@ -35,4 +35,7 @@ export LANG=ja_JP.UTF-8
 export KCODE=u
 export LC_CTYPE=ja_JP.UTF-8
 
-source ~/.bashrc
+# Load bash aliases if bashrc exists
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
