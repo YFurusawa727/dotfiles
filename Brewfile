@@ -7,6 +7,7 @@ brew "git"                     # Version control
 brew "gh"                      # GitHub CLI
 brew "gpg"                     # GNU Privacy Guard
 brew "groff"                   # GNU troff document formatter
+brew "openjdk@17"              # Java
 brew "peco"                    # Interactive filtering tool
 brew "stow"                    # Symlink farm manager
 brew "starship"                # Cross-shell prompt
@@ -14,8 +15,9 @@ brew "zsh-autosuggestions"     # Zsh autosuggestions plugin
 
 # macOS Applications
 cask "alacritty"                      # GPU-accelerated terminal emulator
-cask "android-studio"                 # Android development IDE  
+cask "android-studio"                 # Android development IDE
 cask "appcleaner"                     # Application uninstaller
+cask "arc"                            # Arc browser
 cask "chatgpt"                        # ChatGPT desktop app
 cask "clipy"                          # Clipboard extension
 cask "coteditor"                      # Text editor for macOS
