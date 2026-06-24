@@ -1,13 +1,10 @@
 # Core development tools - pinned to stable versions
 brew "asdf"                    # Runtime version manager
-brew "coreutils"               # GNU core utilities
 brew "curl"                    # HTTP client
-brew "gawk"                    # GNU awk
 brew "git"                     # Version control
 brew "gh"                      # GitHub CLI
 brew "gpg"                     # GNU Privacy Guard
 brew "groff"                   # GNU troff document formatter
-brew "openjdk@17"              # Java
 brew "peco"                    # Interactive filtering tool
 brew "stow"                    # Symlink farm manager
 brew "starship"                # Cross-shell prompt
@@ -18,13 +15,14 @@ cask "font-jetbrains-mono-nerd-font"  # JetBrains Mono Nerd Font (used by Alacri
 
 # macOS Applications
 cask "alacritty"                      # GPU-accelerated terminal emulator
-cask "android-studio"                 # Android development IDE
 cask "appcleaner"                     # Application uninstaller
 cask "arc"                            # Arc browser
 cask "chatgpt"                        # ChatGPT desktop app
+cask "claude"                         # Claude desktop app
+cask "claude-code"                    # Claude Code CLI
+cask "codex"                          # OpenAI Codex CLI
 cask "clipy"                          # Clipboard extension
 cask "coteditor"                      # Text editor for macOS
-cask "cursor"                         # AI code editor
 cask "cyberduck"                      # FTP/SFTP client
 cask "discord"                        # Voice and text chat
 cask "disk-diet"                      # Disk cleanup utility

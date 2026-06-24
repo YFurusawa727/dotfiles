@@ -37,8 +37,6 @@ export LC_CTYPE=ja_JP.UTF-8
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
 
