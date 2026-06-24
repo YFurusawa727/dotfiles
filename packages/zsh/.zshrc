@@ -1,25 +1,26 @@
 eval "$(starship init zsh)"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-### peco settings
-# history ctrl-r
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+# fzf
+eval "$(fzf --zsh)"
+
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border --color=fg:#d4d4d4,bg:#1e1e1e,hl:#3794ff,fg+:#ffffff,bg+:#2d2d2d,hl+:#3794ff,info:#ffcc02,prompt:#bc3fbc,pointer:#f44747,marker:#4ec9b0'
+
+### fzf settings
+# history ctrl-r (override fzf default with dedup)
+function fzf-history-selection() {
+    BUFFER=$(history -n 1 | awk '!a[$0]++' | fzf --tac --no-sort --query "$LBUFFER")
     CURSOR=$#BUFFER
     zle reset-prompt
 }
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
+zle -N fzf-history-selection
+bindkey '^R' fzf-history-selection
 
 # cdr ctrl-e
-function peco-get-destination-from-cdr() {
-  cdr -l | \
-  sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  peco --query "$LBUFFER"
-}
-function peco-cdr() {
-  local destination="$(peco-get-destination-from-cdr)"
+function fzf-cdr() {
+  local destination=$(cdr -l | sed -e 's/^[[:digit:]]*[[:blank:]]*//' | fzf --query "$LBUFFER")
   if [ -n "$destination" ]; then
     BUFFER="cd $destination"
     zle accept-line
@@ -27,8 +28,8 @@ function peco-cdr() {
     zle reset-prompt
   fi
 }
-zle -N peco-cdr
-bindkey '^E' peco-cdr
+zle -N fzf-cdr
+bindkey '^E' fzf-cdr
 
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8

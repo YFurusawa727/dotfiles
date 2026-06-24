@@ -5,10 +5,12 @@ brew "git"                     # Version control
 brew "gh"                      # GitHub CLI
 brew "gpg"                     # GNU Privacy Guard
 brew "groff"                   # GNU troff document formatter
+brew "fzf"                     # Fuzzy finder (replaces peco)
 brew "peco"                    # Interactive filtering tool
 brew "stow"                    # Symlink farm manager
 brew "starship"                # Cross-shell prompt
 brew "zsh-autosuggestions"     # Zsh autosuggestions plugin
+brew "zsh-syntax-highlighting" # Zsh syntax highlighting
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"  # JetBrains Mono Nerd Font (used by Alacritty)
@@ -31,6 +33,7 @@ cask "google-chrome"                  # Web browser
 cask "google-cloud-sdk"               # Google Cloud command-line tools
 cask "intellij-idea"                  # Java IDE
 cask "keyboardcleantool"              # Keyboard cleaning utility
+cask "logi-options+"                  # Logitech Options+
 cask "notion"                         # Note-taking and productivity
 cask "phpstorm"                       # PHP IDE
 cask "postman"                        # API development and testing
