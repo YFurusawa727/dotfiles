@@ -58,7 +58,7 @@ main() {
     required_files=(
         "install"
         "Brewfile"
-        "packages/git/.gitconfig"
+        "packages/git/.gitconfig.example"
         "packages/zsh/.zshrc"
         "packages/bash/.bashrc"
         "packages/asdf/.tool-versions"
@@ -78,7 +78,6 @@ main() {
     
     executables=(
         "install"
-        "page_display"
         "test_install.sh"
         "validate.sh"
     )
