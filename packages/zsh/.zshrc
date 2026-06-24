@@ -1,5 +1,4 @@
 eval "$(starship init zsh)"
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -32,10 +31,17 @@ zle -N peco-cdr
 bindkey '^E' peco-cdr
 
 export LANG=ja_JP.UTF-8
-export KCODE=u
 export LC_CTYPE=ja_JP.UTF-8
 
 # Load bash aliases if bashrc exists
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="$HOME/.asdf/shims:$PATH"

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Test script for dotfiles installation
-set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEST_LOG="$SCRIPT_DIR/test_results.log"
@@ -32,9 +31,9 @@ log_error() {
 run_test() {
     local test_name="$1"
     local test_command="$2"
-    
+
     echo "Running test: $test_name"
-    if eval "$test_command" >> "$TEST_LOG" 2>&1; then
+    if (eval "$test_command") >> "$TEST_LOG" 2>&1; then
         log_info "✓ $test_name - PASSED"
         return 0
     else
@@ -63,7 +62,6 @@ log_info "Testing configuration file validity..."
 
 run_test "Brewfile syntax" "brew bundle check --file=$SCRIPT_DIR/Brewfile || true"
 run_test "Install script executable" "test -x $SCRIPT_DIR/install"
-run_test "Page display script executable" "test -x $SCRIPT_DIR/page_display"
 
 # Test 3: Check stow configurations
 log_info "Testing stow configurations..."
@@ -118,11 +116,6 @@ if [ -f "$SCRIPT_DIR/packages/starship/.config/starship.toml" ]; then
         log_warn "Starship not installed, skipping configuration test"
     fi
 fi
-
-# Test 8: URL validation in page_display
-log_info "Testing page_display script..."
-
-run_test "Page display URLs valid" "grep -oE 'https?://[^\"]*' $SCRIPT_DIR/page_display | while read -r url; do timeout 5 curl -Is \"\$url\" | head -1 | grep -q '200\\|301\\|302' || true; done"
 
 # Summary
 echo "" >> "$TEST_LOG"

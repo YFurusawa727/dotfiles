@@ -64,10 +64,13 @@ if [ ! -f ~/dotfiles/.env ]; then
     echo ""
     
     # Interactive setup option
-    read -p "Would you like to set your git configuration now? (y/n): " setup_git
+    printf "Would you like to set your git configuration now? (y/n): "
+    read setup_git < /dev/tty
     if [ "$setup_git" = "y" ] || [ "$setup_git" = "Y" ]; then
-        read -p "Enter your full name: " git_name
-        read -p "Enter your email: " git_email
+        printf "Enter your full name: "
+        read git_name < /dev/tty
+        printf "Enter your email: "
+        read git_email < /dev/tty
         
         if [ -n "$git_name" ] && [ -n "$git_email" ]; then
             # Use a safer method to update .env file without sed vulnerabilities
@@ -126,8 +129,8 @@ if [ ! -f ~/dotfiles/packages/git/.gitconfig ]; then
     # Replace placeholders with actual values if environment variables are set
     if [ -n "$GIT_USER_NAME" ] && [ -n "$GIT_USER_EMAIL" ]; then
         log "Setting up git configuration with environment variables..."
-        sed -i '' "s/Your Full Name/$GIT_USER_NAME/" ~/dotfiles/packages/git/.gitconfig
-        sed -i '' "s/your.email@example.com/$GIT_USER_EMAIL/" ~/dotfiles/packages/git/.gitconfig
+        sed -i '' "s|Your Full Name|$GIT_USER_NAME|" ~/dotfiles/packages/git/.gitconfig
+        sed -i '' "s|your.email@example.com|$GIT_USER_EMAIL|" ~/dotfiles/packages/git/.gitconfig
         log "Git user configured: $GIT_USER_NAME <$GIT_USER_EMAIL>"
     else
         log "Git configuration created with default template"

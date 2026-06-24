@@ -31,10 +31,9 @@ macOS開発環境の自動セットアップ用dotfiles管理システム
 curl -fsSL https://raw.githubusercontent.com/YFurusawa727/dotfiles/main/install | bash
 ```
 
-または、手動でクローンする場合：
+または、gitが既にインストール済みの場合：
 
 ```bash
-# リポジトリをクローンしてインストールスクリプトを実行（gitが既にインストール済みの場合）
 git clone https://github.com/YFurusawa727/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install
@@ -106,7 +105,6 @@ dotfiles/
 ├── install               # メインインストールスクリプト
 ├── Brewfile              # Homebrewパッケージ定義
 ├── Brewfile.lock.json    # Homebrewロックファイル
-├── page_display          # ウェブページを開くユーティリティスクリプト
 ├── test_install.sh       # インストールテストスクリプト
 ├── validate.sh           # 設定検証スクリプト
 ├── .env.example          # 環境変数の例
@@ -329,6 +327,5 @@ vim ~/dotfiles/packages/git/.gitconfig
   - `.gitconfig.example`をテンプレートとして提供
 - **既存設定の安全性**: 既存設定の自動取り込みによりデータ損失を防止
 - **スクリプト検証**: 外部スクリプトは実行前に検証
-- **URL検証**: page_displayスクリプトのURLは検証済み  
 - **エラーハンドリング**: 部分的なインストールを防止する包括的なエラー処理
 - **権限管理**: 必要最小限の権限で実行
