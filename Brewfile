@@ -13,6 +13,9 @@ brew "stow"                    # Symlink farm manager
 brew "starship"                # Cross-shell prompt
 brew "zsh-autosuggestions"     # Zsh autosuggestions plugin
 
+# Fonts
+cask "font-jetbrains-mono-nerd-font"  # JetBrains Mono Nerd Font (used by Alacritty)
+
 # macOS Applications
 cask "alacritty"                      # GPU-accelerated terminal emulator
 cask "android-studio"                 # Android development IDE
